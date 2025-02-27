@@ -1,4 +1,7 @@
-package com.example.dio.service.impl;
+package com.example.dio.service;
 
-public class UserService {
+import com.example.dio.model.User;
+
+public interface UserService {
+  public User registration                (User user);
 }
