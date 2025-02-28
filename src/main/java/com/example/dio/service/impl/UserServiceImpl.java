@@ -12,23 +12,25 @@ import com.example.dio.model.User;
 import com.example.dio.repository.UserRepository;
 import com.example.dio.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.example.dio.mapper.UserMapper.mapToUserRequest;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final UserMapper userMapper;
 
     @Override
     public UserResponse registration(RegistrationRequest userRequest) {
         User user = this.createUserByRole(userRequest.getRole());
-        mapToUserRequest(userRequest, user);
-        userRepository.save(user);
-       return UserMapper.mapToUserResponse(user);
+        userMapper.mapToUserRequest(userRequest, user);
+
+       return userMapper.mapToUserResponse( userRepository.save(user));
     }
 
 
@@ -47,16 +49,16 @@ public class UserServiceImpl implements UserService {
     public UserResponse findUserById(long userId) {
         User user= userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
-        return UserMapper.mapToUserResponse(user);
+        return userMapper.mapToUserResponse(user);
     }
 
     @Override
     public UserResponse updateUserById(long userId, UserRequest updatedUser) {
         User exuser = userRepository.findById(userId)
                         .orElseThrow(() ->  new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
-        UserMapper.mapToUserEntity(updatedUser, exuser);
+        userMapper.mapToUserEntity(updatedUser, exuser);
         userRepository.save(exuser);
-         return UserMapper.mapToUserResponse(exuser);
+         return userMapper.mapToUserResponse(exuser);
     }
 
 

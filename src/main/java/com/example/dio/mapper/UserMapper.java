@@ -4,12 +4,14 @@ import com.example.dio.dto.request.RegistrationRequest;
 import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.model.User;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
-@Component
-public class UserMapper {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-    public static UserResponse mapToUserResponse(User user) {
+   /* public static UserResponse mapToUserResponse(User user) {
         UserResponse userResponse = UserResponse.builder()
                 .userid(user.getUserid())
                 .username(user.getUsername())
@@ -32,5 +34,9 @@ public class UserMapper {
         exuser.setUsername(updatedUser.getUsername());
         exuser.setEmail(updatedUser.getEmail());
         exuser.setPhno(updatedUser.getPhno());
-    }
+    }*/
+
+    UserResponse mapToUserResponse(User user);
+    void mapToUserRequest(RegistrationRequest userRequest, @MappingTarget User user);
+    void mapToUserEntity(UserRequest updatedUser, @MappingTarget User exuser);
 }
