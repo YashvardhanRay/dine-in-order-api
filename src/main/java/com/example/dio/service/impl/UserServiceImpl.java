@@ -1,6 +1,7 @@
 package com.example.dio.service.impl;
 
 import com.example.dio.enums.UserRole;
+import com.example.dio.exception.UserNotFoundByIdException;
 import com.example.dio.model.Admin;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
@@ -22,7 +23,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user1);
     }
 
-
     private User createUserByRole (UserRole role){
         User user2;
         switch (role){
@@ -41,6 +41,10 @@ public class UserServiceImpl implements UserService {
         user2.setUserrole(user.getUserrole());
     }
 
-
+    @Override
+    public User findUserById(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() ->new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+    }
 
 }
