@@ -1,5 +1,7 @@
 package com.example.dio.controller;
 
+import com.example.dio.dto.request.RegistrationRequest;
+import com.example.dio.dto.response.UserResponse;
 import com.example.dio.model.User;
 import com.example.dio.service.UserService;
 import com.example.dio.utility.ResponseBuilder;
@@ -16,15 +18,21 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<User>> registerUser(@RequestBody User user) {
-        user = userService.registration(user);
-        return ResponseBuilder.success(HttpStatus.CREATED,"User Created", user);
+    public ResponseEntity<ResponseStructure<UserResponse>> registerUser(@RequestBody RegistrationRequest userRequest) {
+       UserResponse userResponse = userService.registration(userRequest);
+        return ResponseBuilder.success(HttpStatus.CREATED,"User Created", userResponse);
     }
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<ResponseStructure<User>> findUserById (@PathVariable long userId){
         User user = userService.findUserById(userId);
         return ResponseBuilder.success(HttpStatus.OK,"User Found",user);
+    }
+
+    @PostMapping("update/{userId}")
+    public ResponseEntity<ResponseStructure<User>> updateUserById(@PathVariable long userId, @RequestBody User updatedUser){
+        User user = userService.updateUserById(userId, updatedUser);
+        return ResponseBuilder.success(HttpStatus.OK,"User Updated",updatedUser);
     }
 
 }

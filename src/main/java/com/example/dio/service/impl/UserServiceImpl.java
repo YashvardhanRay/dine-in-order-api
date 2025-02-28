@@ -1,5 +1,7 @@
 package com.example.dio.service.impl;
 
+import com.example.dio.dto.request.RegistrationRequest;
+import com.example.dio.dto.response.UserResponse;
 import com.example.dio.enums.UserRole;
 import com.example.dio.exception.UserNotFoundByIdException;
 import com.example.dio.model.Admin;
@@ -17,10 +19,32 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User registration(User user) {
-        User user1 = this.createUserByRole(user.getUserrole());
-        this.mapToNewUser(user,user1);
-        return userRepository.save(user1);
+    public UserResponse registration(RegistrationRequest userRequest) {
+        User user = this.createUserByRole(userRequest.getRole());
+        mapToUserRequest(userRequest, user);
+        userRepository.save(user);
+       return mapToUserResponse(user);
+    }
+
+    private static UserResponse mapToUserResponse(User user) {
+        UserResponse userResponse = UserResponse.builder()
+                .userid(user.getUserid())
+                .username(user.getUsername())
+                .lastmodifiedat(user.getLastmodifiedat())
+                .createdat(user.getCreatedat())
+                .role(user.getUserrole())
+                .build();
+
+        System.out.println(userResponse);
+        return userResponse;
+    }
+
+    private static void mapToUserRequest(RegistrationRequest userRequest, User user) {
+        user.setUsername(userRequest.getUsername());
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(userRequest.getPassword());
+        user.setPhno(userRequest.getPhno());
+        user.setUserrole(userRequest.getRole());
     }
 
     private User createUserByRole (UserRole role){
@@ -44,7 +68,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() ->new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+                .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+    }
+
+    @Override
+    public User updateUserById(long userId, User updatedUser) {
+        User user = findUserById(userId);
+        this.mapToNewUser(updatedUser,user);
+
+        return userRepository.save(updatedUser);
     }
 
 }
