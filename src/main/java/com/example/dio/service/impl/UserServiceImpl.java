@@ -1,6 +1,10 @@
 package com.example.dio.service.impl;
 
+import com.example.dio.dto.request.RegistrationRequest;
+import com.example.dio.dto.request.UserRequest;
+import com.example.dio.dto.response.UserResponse;
 import com.example.dio.enums.UserRole;
+import com.example.dio.exception.UserNotFoundByIdException;
 import com.example.dio.model.Admin;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
@@ -16,12 +20,33 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User registration(User user) {
-        User user1 = this.createUserByRole(user.getUserrole());
-        this.mapToNewUser(user,user1);
-        return userRepository.save(user1);
+    public UserResponse registration(RegistrationRequest userRequest) {
+        User user = this.createUserByRole(userRequest.getRole());
+        mapToUserRequest(userRequest, user);
+        userRepository.save(user);
+       return mapToUserResponse(user);
     }
 
+    private static UserResponse mapToUserResponse(User user) {
+        UserResponse userResponse = UserResponse.builder()
+                .userid(user.getUserid())
+                .username(user.getUsername())
+                .lastmodifiedat(user.getLastmodifiedat())
+                .createdat(user.getCreatedat())
+                .role(user.getUserrole())
+                .build();
+
+        System.out.println(userResponse);
+        return userResponse;
+    }
+
+    private static void mapToUserRequest(RegistrationRequest userRequest, User user) {
+        user.setUsername(userRequest.getUsername());
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(userRequest.getPassword());
+        user.setPhno(userRequest.getPhno());
+        user.setUserrole(userRequest.getRole());
+    }
 
     private User createUserByRole (UserRole role){
         User user2;
@@ -41,6 +66,22 @@ public class UserServiceImpl implements UserService {
         user2.setUserrole(user.getUserrole());
     }
 
+    @Override
+    public UserResponse findUserById(long userId) {
+        User user= userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+        return mapToUserResponse(user);
+    }
 
+    @Override
+    public UserResponse updateUserById(long userId, UserRequest updatedUser) {
+        User exuser = userRepository.findById(userId)
+                        .orElseThrow(() ->  new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+        exuser.setUsername(updatedUser.getUsername());
+        exuser.setEmail(updatedUser.getEmail());
+        exuser.setPhno(updatedUser.getPhno());
+         userRepository.save(exuser);
+         return mapToUserResponse(exuser);
+    }
 
 }
