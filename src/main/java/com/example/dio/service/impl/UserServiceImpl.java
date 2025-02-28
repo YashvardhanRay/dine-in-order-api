@@ -1,6 +1,7 @@
 package com.example.dio.service.impl;
 
 import com.example.dio.dto.request.RegistrationRequest;
+import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.enums.UserRole;
 import com.example.dio.exception.UserNotFoundByIdException;
@@ -66,17 +67,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(long userId) {
-        return userRepository.findById(userId)
+    public UserResponse findUserById(long userId) {
+        User user= userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+        return mapToUserResponse(user);
     }
 
     @Override
-    public User updateUserById(long userId, User updatedUser) {
-        User user = findUserById(userId);
-        this.mapToNewUser(updatedUser,user);
-
-        return userRepository.save(updatedUser);
+    public UserResponse updateUserById(long userId, UserRequest updatedUser) {
+        User exuser = userRepository.findById(userId)
+                        .orElseThrow(() ->  new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
+        exuser.setUsername(updatedUser.getUsername());
+        exuser.setEmail(updatedUser.getEmail());
+        exuser.setPhno(updatedUser.getPhno());
+         userRepository.save(exuser);
+         return mapToUserResponse(exuser);
     }
 
 }
