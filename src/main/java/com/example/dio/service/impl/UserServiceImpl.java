@@ -12,7 +12,6 @@ import com.example.dio.model.User;
 import com.example.dio.repository.UserRepository;
 import com.example.dio.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -20,9 +19,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private final UserMapper userMapper;
 
     @Override
@@ -32,7 +29,6 @@ public class UserServiceImpl implements UserService {
 
        return userMapper.mapToUserResponse( userRepository.save(user));
     }
-
 
 
     private User createUserByRole (UserRole role){
@@ -54,13 +50,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse updateUserById(long userId, UserRequest updatedUser) {
-        User exuser = userRepository.findById(userId)
-                        .orElseThrow(() ->  new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
-        userMapper.mapToUserEntity(updatedUser, exuser);
-        userRepository.save(exuser);
-         return userMapper.mapToUserResponse(exuser);
+        return userRepository.findById(userId)
+                .map(exUser -> {
+                    userMapper.mapToUserEntity(updatedUser, exUser);
+                    userRepository.save(exUser);
+                    return userMapper.mapToUserResponse(exUser);
+                })
+                .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id " + userId));
     }
-
-
 
 }

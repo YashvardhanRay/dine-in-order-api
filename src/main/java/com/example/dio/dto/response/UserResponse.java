@@ -1,13 +1,11 @@
 package com.example.dio.dto.response;
 
 import com.example.dio.enums.UserRole;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
+
 @Getter
 @Setter
 public class UserResponse {
