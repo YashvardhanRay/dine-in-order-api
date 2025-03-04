@@ -16,7 +16,7 @@ public class UserRequest {
     @NotBlank(message = "Email cannot be a space !!")
     private String email;
     @NotEmpty(message = "Phone number cannot be null or blank !!")
-    @NotBlank(message = "User name cannot be a space !!")
+    @NotBlank(message = "Phone no. cannot be a space !!")
     private String phno;
 
 }

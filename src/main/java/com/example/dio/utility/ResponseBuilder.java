@@ -4,6 +4,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public class ResponseBuilder {
 
     public static <T> ResponseEntity<ResponseStructure<T>> success (HttpStatus status, String message, T data){
@@ -33,6 +35,18 @@ public class ResponseBuilder {
                 .type(status.name())
                 .message(message)
                 .status(status.value())
+                .build();
+
+        return ResponseEntity.status(status)
+                .body(error);
+    }
+
+    public static ResponseEntity<SimpleErrorResponse> error(HttpStatus status, String message, List<FieldErrorResponse.FieldError > fieldError) {
+        FieldErrorResponse error = FieldErrorResponse.builder()
+                .type(status.name())
+                .message(message)
+                .status(status.value())
+                .fieldErrors(fieldError)
                 .build();
 
         return ResponseEntity.status(status)
