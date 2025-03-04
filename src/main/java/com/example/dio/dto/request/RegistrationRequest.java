@@ -23,7 +23,6 @@ public class RegistrationRequest {
     @NotEmpty(message = "Phone no. cannot be null or blank !!")
     @NotBlank(message = "Phone no. cannot be a space !!")
     private String phno;
-    @NotEmpty(message = "User role cannot be null or blank !!")
-    @NotBlank(message = "User role cannot be a space !!")
+
     private UserRole role;
 }
