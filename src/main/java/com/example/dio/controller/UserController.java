@@ -4,8 +4,13 @@ import com.example.dio.dto.request.RegistrationRequest;
 import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.service.UserService;
+import com.example.dio.utility.FieldErrorResponse;
 import com.example.dio.utility.ResponseBuilder;
 import com.example.dio.utility.ResponseStructure;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,9 +25,21 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<UserResponse>> registerUser(@RequestBody @Valid RegistrationRequest userRequest) {
-       UserResponse userResponse = userService.registration(userRequest);
-        return ResponseBuilder.success(HttpStatus.CREATED,"User Created", userResponse);
+    @Operation(description = """
+            The API Endpoint is used to register user.
+            The endpoints requires the user to select one of the specified role along with the other details
+            """,
+            responses = {
+                    @ApiResponse(responseCode = "201",description = "User Created"),
+                    @ApiResponse(responseCode = "400", description = "Invalid Input", content = {
+                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
+                    })
+            }
+    )
+    public ResponseEntity<ResponseStructure<UserResponse>> registration(@Valid @RequestBody  RegistrationRequest registrationRequest) {
+        System.out.println("user name :" + registrationRequest.getUsername());
+        UserResponse registration = userService.registration(registrationRequest);
+        return ResponseBuilder.success(HttpStatus.CREATED, "Data Stored!!", registration);
     }
 
     @GetMapping("/users/{userId}")
