@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("${app.base-url}")
 @Tag(name = "User Controller", description = "Collection of API Endpoints for User Management.")
 public class UserController {
 
