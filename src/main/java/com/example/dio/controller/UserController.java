@@ -41,19 +41,30 @@ public class UserController {
     public ResponseEntity<ResponseStructure<UserResponse>> registration(@Valid @RequestBody  RegistrationRequest registrationRequest) {
         System.out.println("user name :" + registrationRequest.getUsername());
         UserResponse registration = userService.registration(registrationRequest);
-        return ResponseBuilder.success(HttpStatus.CREATED, "Data Stored!!", registration);
+        return ResponseBuilder.created("Data Stored!!", registration);
     }
 
     @GetMapping("/users/{userId}")
+    @Operation(description = """
+            The API Endpoint is used to Find user.
+            The endpoints requires the userId.
+            """,
+            responses = {
+                    @ApiResponse(responseCode = "201",description = "User Created"),
+                    @ApiResponse(responseCode = "400", description = "Invalid Input", content = {
+                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
+                    })
+            }
+    )
     public ResponseEntity<ResponseStructure<UserResponse>> findUserById (@PathVariable long userId){
         UserResponse user = userService.findUserById(userId);
-        return ResponseBuilder.success(HttpStatus.OK,"User Found",user);
+        return ResponseBuilder.ok("User Found",user);
     }
 
     @PostMapping("update/{userId}")
     public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@PathVariable long userId, @RequestBody @Valid UserRequest updatedUser){
         UserResponse user = userService.updateUserById(userId, updatedUser);
-        return ResponseBuilder.success(HttpStatus.OK,"User Updated",user);
+        return ResponseBuilder.ok("User Updated",user);
     }
 
 }

@@ -13,6 +13,6 @@ public class UserExceptionHandler {
 
     @ExceptionHandler(UserNotFoundByIdException.class)
     public ResponseEntity<SimpleErrorResponse> handleUserNotFoundByIdException(UserNotFoundByIdException ex) {
-        return ResponseBuilder.error(HttpStatus.NOT_FOUND,ex.getMessage());
+        return ResponseBuilder.notFound(ex.getMessage());
     }
 }
