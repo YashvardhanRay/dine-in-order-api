@@ -46,7 +46,7 @@ public class Restaurant {
     @Column(name = "last_modified_at")
     private LocalDateTime lastModifiedAt;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
 
     @ManyToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
