@@ -30,7 +30,12 @@ public class UserServiceImpl implements UserService {
        return userMapper.mapToUserResponse( userRepository.save(user));
     }
 
-
+/**
+ * Produce and return child instance of the User Based on the user role.
+ *
+ * @param role the role of the user
+ * @return User the parent reference containing either of Staff or Admin instance
+ */
     private User createUserByRole (UserRole role){
         User user2;
         switch (role){
@@ -41,6 +46,12 @@ public class UserServiceImpl implements UserService {
         return user2;
     }
 
+    /**
+     * Find the user
+     *
+     * @param userId the id of the user
+     * @return UserResponse object
+     */
     @Override
     public UserResponse findUserById(long userId) {
         User user= userRepository.findById(userId)

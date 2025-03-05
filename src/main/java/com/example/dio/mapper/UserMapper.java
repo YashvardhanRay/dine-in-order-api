@@ -36,6 +36,9 @@ public interface UserMapper {
         exuser.setPhno(updatedUser.getPhno());
     }*/
 
+    /**
+     * Mapping the user entity with
+     * */
     UserResponse mapToUserResponse(User user);
     void mapToUserRequest(RegistrationRequest userRequest, @MappingTarget User user);
     void mapToUserEntity(UserRequest updatedUser, @MappingTarget User exuser);
