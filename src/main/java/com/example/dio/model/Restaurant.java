@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "restaurant")
+@Entity
 public class Restaurant {
 
     @Id
@@ -22,7 +23,7 @@ public class Restaurant {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "restaurant_id")
+    @Column(name = "address")
     private String address;
 
     @Column(name = "contact_number")
@@ -38,7 +39,7 @@ public class Restaurant {
     private LocalTime closesAt;
 
     @Column(name = "diet_type")
-    private List<DietType> dietType;
+    private List<DietType> dietTypes;
 
     @Column(name = "created_at")
     private LocalTime createdAt;
@@ -50,5 +51,5 @@ public class Restaurant {
     private Admin admin;
 
     @ManyToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
-    private List<CuisineType> cuisineType;
+    private List<CuisineType> cuisineTypes;
 }

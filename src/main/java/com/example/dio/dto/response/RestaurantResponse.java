@@ -26,12 +26,12 @@ public class RestaurantResponse {
 
     private LocalTime closesAt;
 
-    private DietType dietType;
+    private List<DietType> dietTypes;
 
     private LocalTime createdAt;
 
     private LocalDateTime lastModifiedAt;
 
-    private List<String> cuisineType;
+    private List<String> cuisineTypes;
 
 }

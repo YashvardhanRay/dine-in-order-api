@@ -4,7 +4,6 @@ import com.example.dio.enums.DietType;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalTime;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class RestaurantRequest {
     @NotBlank(message = "Close-At cannot be a space !!")
     private LocalTime closesAt;
 
-    private List<DietType> dietType;
+    private List<DietType> dietTypes;
 
     private List<String> cuisineTypes;
 }
