@@ -23,6 +23,6 @@ public class Staff extends User{
     private List<RestaurantTable> restaurantTables;
 
     @ManyToOne
-    private Restaurant restaurent;
+    private Restaurant restaurant;
 
 }
