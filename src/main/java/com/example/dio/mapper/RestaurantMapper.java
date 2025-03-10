@@ -20,10 +20,10 @@ public interface RestaurantMapper {
     /**
      * Converts a {@link RestaurantRequest} DTO to a {@link RestaurantResponse} entity.
      *
-     * @param restaurantRequest the request DTO containing restaurant details
+     * @param restaurant the request DTO containing restaurant details
      * @return the mapped {@link RestaurantResponse} entity
      */
-    RestaurantResponse mapToRestaurantResponse(RestaurantRequest restaurantRequest);
+    RestaurantResponse mapToRestaurantResponse(Restaurant restaurant);
 
     /**
      * Converts a {@link RestaurantRequest} DTO to a {@link Restaurant} entity.
