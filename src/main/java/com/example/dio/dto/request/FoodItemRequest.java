@@ -4,6 +4,8 @@ import com.example.dio.enums.DietType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class FoodItemRequest {
@@ -13,4 +15,5 @@ public class FoodItemRequest {
     private int stock;
     private DietType dietType;
     private String cuisineType;
+    private List<String> category;
 }

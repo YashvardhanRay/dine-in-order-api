@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("${app.base-url}")
 public class RestaurantController {
 
-    private RestaurantService restaurentService;
+    private RestaurantService restaurantService;
 
     @PostMapping("/Restaurant/{userId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> createRestaurant(
             @PathVariable long userId, @RequestBody RestaurantRequest restaurantRequest){
 
-        RestaurantResponse restaurastResponse =
-                restaurentService.createRestaurant(userId,restaurantRequest);
+        RestaurantResponse restaurantResponse =
+                restaurantService.createRestaurant(userId,restaurantRequest);
 
         return ResponseBuilder.created(
-                "Restaurant Added successfully !! ",restaurastResponse);
+                "Restaurant Added successfully !! ",restaurantResponse);
     }
 
 }
