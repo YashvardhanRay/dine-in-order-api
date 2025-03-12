@@ -8,6 +8,17 @@ import java.util.List;
 
 public class ResponseBuilder {
 
+    public static <T> ResponseEntity<ListResponseStructure<T>> success (HttpStatus status, String message, List<T> data){
+        ListResponseStructure<T> structure = ListResponseStructure.<T>builder()
+                .httpStatus(status.value())
+                .data(data)
+                .message(message)
+                .build();
+
+        return ResponseEntity.status(status)
+                .body(structure);
+    }
+
     /**
      * Help creating the success response with data
      * including the HttpStatus code, message
@@ -65,13 +76,17 @@ public class ResponseBuilder {
         return success(HttpStatus.OK,message,data);
     }
 
+    public static <T> ResponseEntity<ListResponseStructure<T>> ok (String message, List<T> data){
+        return success(HttpStatus.OK,message,data);
+    }
+
     /**
      * Help creating the create method response with data
      * including message and T data itself
      *
      * @Params message -> provide message for crated
      * @Params <T> -> data invoke in the operation
-     * @Params return-> we invoke the success method and provide default HttpStatus.CREATED
+     * @Params return-> we invoke the success method and provide default HttpStatus. CREATED
      */
     public static <T> ResponseEntity<ResponseStructure<T>> created (String message, T data){
         return success(HttpStatus.CREATED,message,data);

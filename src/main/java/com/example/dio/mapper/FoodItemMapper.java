@@ -8,7 +8,6 @@ import com.example.dio.model.FoodItem;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import javax.smartcardio.CardTerminal;
 import java.util.List;
 
 @Mapper(componentModel = "spring")

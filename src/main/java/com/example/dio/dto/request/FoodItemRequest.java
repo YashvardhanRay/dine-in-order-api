@@ -11,7 +11,7 @@ import java.util.List;
 public class FoodItemRequest {
     private String name;
     private double price;
-    private String Description;
+    private String description;
     private int stock;
     private DietType dietType;
     private String cuisineType;

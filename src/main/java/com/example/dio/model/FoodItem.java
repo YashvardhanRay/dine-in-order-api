@@ -50,7 +50,7 @@ public class FoodItem {
     private CuisineType cuisineType;
 
     @ManyToOne
-    private Restaurant restaurent;
+    private Restaurant restaurant;
 
     @ManyToMany
     private List<Category> categories;

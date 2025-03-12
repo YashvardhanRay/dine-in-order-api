@@ -14,7 +14,7 @@ import java.util.List;
 public class Category {
 
     @Id
-    @Column(name = "category")
+    @Column(name = "category_name")
     private String category;
 
     @ManyToMany(mappedBy = "categories")

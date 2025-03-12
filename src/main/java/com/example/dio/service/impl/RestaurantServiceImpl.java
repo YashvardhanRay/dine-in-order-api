@@ -22,13 +22,13 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private UserRepository userRepository;
-    private RestaurantRepository restaurentReposetory;
+    private RestaurantRepository restaurantReposetory;
     private final CuisineRepository cuisineRepository;
     private RestaurantMapper restaurantMapper;
 
     @Override
     public RestaurantResponse createRestaurant(long userId, RestaurantRequest restaurantRequest) {
-        User user =userRepository.findById(userId).orElseThrow(() -> new UserNotFoundByIdException("User Not Found , Invalid User Id"));
+        User user =userRepository.findById(userId).orElseThrow(() -> new UserNotFoundByIdException("User Not Found, Invalid User Id"));
         if(user instanceof Admin admin){
             Restaurant restaurant = restaurantMapper.mapToRestaurantEntity(restaurantRequest);
 
@@ -36,7 +36,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             restaurant.setCuisineTypes(cuisineTypes);
             restaurant.setAdmin(admin);
 
-            restaurentReposetory.save(restaurant);
+            restaurantReposetory.save(restaurant);
 
             return restaurantMapper.mapToRestaurantResponse(restaurant);
         }
