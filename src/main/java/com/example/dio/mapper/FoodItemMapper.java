@@ -14,8 +14,12 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 @Component
 public interface FoodItemMapper {
+
     FoodItem mapToFoodItem(FoodItemRequest foodItemRequest);
+
     FoodItemResponse mapToFoodItemResponse (FoodItem foodItem);
+
+    List<FoodItemResponse> mapToListOfFoodItemResponse(List<FoodItem> foodItems);
 
     default String mapToString(CuisineType value) {
         if(value == null) {
