@@ -19,12 +19,12 @@ public class UserRequest {
     @Size(max = 50, message = "Email must not exceed 50 characters !!")
     private String email;
 
-    @NotEmpty(message = "Phone no. cannot be null or blank !!")
-    @NotBlank(message = "Phone no. cannot be a space !!")
+   /* @NotBlank(message = "Phone no. cannot be null, empty, or contain only spaces!")*/
     @Pattern(
-            regexp = "^[0-9]\\d{10}$",
-            message = "Invalid phone number format !! Example: 9876543210 (10 digits, starting with 0-9)")
+            regexp = "^[6-9]\\d{9}$",
+            message = "Invalid phone number format! Example: 9876543210 (10 digits, starting with 6-9)")
     private String phno;
+
 
 
 
