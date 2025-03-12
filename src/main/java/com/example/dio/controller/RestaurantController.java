@@ -16,15 +16,13 @@ public class RestaurantController {
 
     private RestaurantService restaurantService;
 
-    @PostMapping("/Restaurant/{userId}")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> createRestaurant(
-            @PathVariable long userId, @RequestBody RestaurantRequest restaurantRequest){
+    @PostMapping("/restaurant/{userId}")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> createRestaurant(@PathVariable long userId, @RequestBody RestaurantRequest restaurantRequest){
 
-        RestaurantResponse restaurantResponse =
-                restaurantService.createRestaurant(userId,restaurantRequest);
+        System.out.println("in restaurant");
+        RestaurantResponse restaurantResponse = restaurantService.createRestaurant(userId,restaurantRequest);
 
-        return ResponseBuilder.created(
-                "Restaurant Added successfully !! ",restaurantResponse);
+        return ResponseBuilder.created("Restaurant Added successfully !! ",restaurantResponse);
     }
 
 }
