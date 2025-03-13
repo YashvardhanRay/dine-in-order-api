@@ -30,7 +30,7 @@ public class RegistrationRequest {
     @NotEmpty(message = "Phone no. cannot be null or blank !!")
     @NotBlank(message = "Phone no. cannot be a space !!")
     @Pattern(
-            regexp = "^[0-9]\\d{10}$",
+            regexp = "^[6-9]\\d{9}$",
             message = "Invalid phone number format !! Example: 9876543210 (10 digits, starting with 0-9)")
     private String phno;
 

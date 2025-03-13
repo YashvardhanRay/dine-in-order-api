@@ -61,7 +61,7 @@ public class UserController {
         return ResponseBuilder.ok("User Found",user);
     }
 
-    @PostMapping("update/{userId}")
+    @PostMapping("users/{userId}")
     public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@PathVariable long userId, @RequestBody @Valid UserRequest updatedUser){
         UserResponse user = userService.updateUserById(userId, updatedUser);
         return ResponseBuilder.ok("User Updated",user);
