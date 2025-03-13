@@ -15,5 +15,5 @@ public class FoodItemRequest {
     private int stock;
     private DietType dietType;
     private String cuisineType;
-    private List<String> category;
+    private List<String> categories;
 }
