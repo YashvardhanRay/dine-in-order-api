@@ -80,6 +80,10 @@ public class ResponseBuilder {
         return success(HttpStatus.OK,message,data);
     }
 
+    public static <T> ResponseEntity<ResponseStructure<T>> ok(HttpHeaders httpHeaders,T data,String message){
+        return success(HttpStatus.OK,httpHeaders,message,data);
+    }
+
     /**
      * Help creating the create method response with data
      * including message and T data itself

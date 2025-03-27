@@ -2,7 +2,13 @@ package com.example.dio.model;
 
 import com.example.dio.enums.OrderStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity
+@Getter
+@Setter
+@Table(name ="cart_item")
 public class CartItem {
 
     @Id
@@ -14,7 +20,7 @@ public class CartItem {
 
     private double totalPrice;
 
-    private OrderStatus isOrdered;
+    private boolean ordered;
 
     @ManyToOne
     private FoodItem foodItem;

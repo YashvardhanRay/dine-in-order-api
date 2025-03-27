@@ -8,6 +8,6 @@ import java.util.List;
 public interface FoodItemService {
 
     FoodItemResponse createFoodItem(long id , FoodItemRequest foodItemRequest);
-
     List<FoodItemResponse> findByTwoCategories(List<String> categories);
+    List<FoodItemResponse> findByRestaurantId(long restaurantId);
 }

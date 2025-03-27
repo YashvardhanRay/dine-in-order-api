@@ -1,6 +1,7 @@
 package com.example.dio.repository;
 
 import com.example.dio.model.FoodItem;
+import com.example.dio.model.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,6 @@ public interface FoodItemRepository extends JpaRepository<FoodItem,Long> {
     List<FoodItem> findByTwoCategories(
             @Param("categories") List<String> categories,
             @Param("categoryCount") int categoryCount);
+
+    List<FoodItem> findByRestaurant(Restaurant restaurant);
 }
