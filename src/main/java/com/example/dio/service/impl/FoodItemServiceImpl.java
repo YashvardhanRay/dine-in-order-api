@@ -2,6 +2,7 @@ package com.example.dio.service.impl;
 
 import com.example.dio.dto.request.FoodItemRequest;
 import com.example.dio.dto.response.FoodItemResponse;
+import com.example.dio.enums.StockStatus;
 import com.example.dio.exception.FoodNotFoundException;
 import com.example.dio.exception.RestaurantNotFoundException;
 import com.example.dio.mapper.FoodItemMapper;
@@ -50,6 +51,13 @@ public class FoodItemServiceImpl implements FoodItemService {
         foodItem.setRestaurant(restaurant);
         foodItem.setCuisineType(foodItem.getCuisineType());
 
+        if(foodItem.getStock() > 0){
+            foodItem.setAvailability(StockStatus.STOCK_IN);
+        }
+        else {
+            foodItem.setAvailability(StockStatus.STOCK_OUT);
+        }
+
         foodItemRepository.save(foodItem);
 
         return foodItemMapper.mapToFoodItemResponse(foodItem);
@@ -70,6 +78,22 @@ public class FoodItemServiceImpl implements FoodItemService {
             else {
                 return foodItemList;
             }
+        }
+    }
+
+    @Override
+    public List<FoodItemResponse> findByRestaurantId(long restaurantId) {
+
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found!!"));
+
+        List<FoodItem> foodItemList = foodItemRepository.findByRestaurant(restaurant);
+
+        if(foodItemList.isEmpty()){
+            throw new FoodNotFoundException("No food with this restaurant");
+        }
+        else {
+            return foodItemMapper.mapToListOfFoodItemResponse(foodItemList);
         }
     }
 
