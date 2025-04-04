@@ -28,7 +28,7 @@ public class RestaurantTable {
     private TableStatus status;
 
     @ManyToOne
-    private Restaurant restaurent;
+    private Restaurant restaurant;
 
     @ManyToMany(mappedBy = "restaurantTables")
     private List<Staff> staffs;
