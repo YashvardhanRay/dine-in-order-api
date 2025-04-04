@@ -52,4 +52,10 @@ public class Restaurant {
 
     @ManyToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private List<CuisineType> cuisineTypes;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantTable> restaurantTables;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<FoodItem> foodItems;
 }
