@@ -1,5 +1,5 @@
 package com.example.dio.enums;
 
 public enum OrderStatus {
-    ORDERED,NOT_ORDERED
+    PENDING,CONFIRMED,PREPARING,READY,SERVED,PAID,CANCELLED,COMPLETED
 }
