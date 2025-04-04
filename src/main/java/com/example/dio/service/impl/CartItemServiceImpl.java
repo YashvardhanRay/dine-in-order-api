@@ -36,7 +36,7 @@ public class CartItemServiceImpl implements CartItemService {
 
         CartItem cartItem;
 
-        if (foodItem.getRestaurant().getRestaurantId() != restaurantTable.getRestaurent().getRestaurantId() ) {
+        if (foodItem.getRestaurant().getRestaurantId() != restaurantTable.getRestaurant().getRestaurantId() ) {
             throw new FoodNotFoundException("food item not found in restaurant !!");
         }
         else if (foodItem.getStock() < quantity) {

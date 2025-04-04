@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .bill {
+            padding: 20px;
+        }
+        .order {
+            margin-left: 20px;
+            padding-left: 10px;
+            border-left: 2px solid #007bff;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-left: 40px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="bill">
+    <h1 th:text="${restaurantName}"></h1>
+    <hr/>
+    <h2>Bill ID: <span th:text="${id}"></span></h2>
+    <h3>Table No: <span th:text="${tableNo}"></span></h3>
+    <div th:each="order : ${bill.orders}" class="order">
+        <h3>Order ID: <span th:text="${order.orderId}"></span></h3>
+        <table>
+            <tr>
+                <th>Food Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            <tr th:each="cartItem : ${order.cartItems}">
+                <td th:text="${cartItem.foodItem.name}"></td>
+                <td th:text="${cartItem.foodItem.price}"></td>
+                <td th:text="${cartItem.quantity}"></td>
+            </tr>
+        </table>
+        <p class="total">Order Total: <span th:text="${order.totalAmount}"></span></p>
+    </div>
+    <hr/>
+    <h2 class="total">Total Payable Amount: <span th:text="${totalAmount}"></span></h2>
+</div>
+</body>
+</html>

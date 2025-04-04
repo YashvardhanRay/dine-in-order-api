@@ -18,16 +18,16 @@ public class TableServiceImpl implements TableService {
 
     private final TableRepository tableRepository;
     private final TableMapper tableMapper;
-    private final RestaurantRepository restaurentRepository;
+    private final RestaurantRepository restaurantRepository;
 
     @Override
     public TableResponse createTable(long restaurantId, TableRequest tableRequest) {
         RestaurantTable restaurantTable = tableMapper.mapToRestaurantTable(tableRequest);
 
-        Restaurant restaurant = restaurentRepository.findById(restaurantId)
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow( () -> new RestaurantNotFoundException("Restaurant not found !!"));
 
-        restaurantTable.setRestaurent(restaurant);
+        restaurantTable.setRestaurant(restaurant);
         tableRepository.save(restaurantTable);
         return tableMapper.mapToTableResponse(restaurantTable);
     }

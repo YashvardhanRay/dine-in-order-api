@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
         if(!cartItemList.isEmpty()){
             order = new Order();
-            order.setOrderStatus(OrderStatus.ORDERED);
+            order.setOrderStatus(OrderStatus.CONFIRMED);
             order.setCartItems(cartItemList);
             order.setRestaurantTable(restaurantTable);
             order.setTotalAmount(
