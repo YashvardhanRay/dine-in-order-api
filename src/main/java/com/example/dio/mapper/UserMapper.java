@@ -1,6 +1,7 @@
 package com.example.dio.mapper;
 
 import com.example.dio.dto.request.RegistrationRequest;
+import com.example.dio.dto.request.UserRegistrationRequest;
 import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.model.User;
@@ -37,9 +38,30 @@ public interface UserMapper {
     }*/
 
     /**
-     * Mapping the user entity with
-     * */
+     *
+     * create and return structure of UserResponse using user object details
+     *
+     * @param user user entity object
+     * @return userResponse object to send restricted attribute
+     */
     UserResponse mapToUserResponse(User user);
-    void mapToUserRequest(RegistrationRequest userRequest, @MappingTarget User user);
-    void mapToUserEntity(UserRequest updatedUser, @MappingTarget User exuser);
+
+    /**
+     *
+     * used for set userRequest (DTO class to update) data in user object
+     *
+     * @param userRequest DTO class with updated user details
+     * @param user object of user entity
+     */
+    void mapToUserRequest(UserRequest userRequest, @MappingTarget User user);
+
+    /**
+     *
+     * used for set RegistrationRequest (DTO class to register) data in user object
+     *
+     * @param updatedUser DTO class object with user detail
+     * @param exuser object of user entity
+     */
+    void mapToUserEntity(UserRegistrationRequest updatedUser, @MappingTarget User exuser);
+    User mapToUserRequest(UserRegistrationRequest registrationRequest);
 }
