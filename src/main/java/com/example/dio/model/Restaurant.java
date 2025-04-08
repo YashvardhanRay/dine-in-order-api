@@ -4,6 +4,8 @@ import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -26,10 +28,10 @@ public class Restaurant {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "contact_number")
+    @Column(name = "phone_no")
     private String contactNumber;
 
-    @Column(name = "contact_email")
+    @Column(name = "email", unique = true)
     private String contactEmail;
 
     @Column(name = "opens_at")
@@ -44,6 +46,10 @@ public class Restaurant {
     @Column(name = "created_at")
     private LocalTime createdAt;
 
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedDate
     @Column(name = "last_modified_at")
     private LocalDateTime lastModifiedAt;
 
