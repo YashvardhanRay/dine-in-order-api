@@ -1,0 +1,30 @@
+spring:
+    application:
+        name: dine-in-order-api
+    datasource:
+        url: ${MYSQL_URL}
+        username:  ${MYSQL_USERNAME}
+        password: ${MYSQL_PASSWORD}
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+app:
+    base-url: /api/v1
+    domain:
+        name: ${DOMAIN_NAME}
+        secure: ${DOMAIN_SECURE}
+        same-site: ${DOMAIN_SAME_SITE}
+    security:
+        public-endpoints:
+            - /login
+            - /restaurants/{restaurantId}/fooditems
+            - /register
+        secret: ${SECURITY_SECRET}
+        token-validity:
+            access-validity: 3600
+            refresh-validity: 1296000
+    cloudinary:
+        cloud_name: ${CLOUD_NAME}
+        api_key: ${API_KEY}
+        api_secret: ${API_SECRET}
