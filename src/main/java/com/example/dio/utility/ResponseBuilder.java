@@ -64,6 +64,17 @@ public class ResponseBuilder {
                 .body(structure);
     }
 
+    public static  ResponseEntity<SimpleResponseStructure> success(HttpStatus httpStatus,HttpHeaders httpHeaders,String message) {
+        SimpleResponseStructure res =  SimpleResponseStructure.builder()
+                .message(message)
+                .httpStatus(httpStatus.value())
+                .build();
+
+        return ResponseEntity.status(httpStatus)
+                .headers(httpHeaders)
+                .body(res);
+    }
+
     /**
      * Help creating the ok method response with data
      * including message and T data itself
@@ -116,28 +127,6 @@ public class ResponseBuilder {
     }
 
     /**
-     * Help creating the error method response with data
-     * including HttpStatus and  message, List<FieldErrorResponse.FieldError>
-     *
-     * @Params HttpStatus -> provide HttpStatus for error
-     * @Params message -> Takes proper message for error response
-     * @Params fieldError -> take list of errors
-     * @Params return-> ResponseEntity of type SimpleErrorResponse
-     * */
-    public static ResponseEntity<SimpleErrorResponse> error(HttpStatus status, String message, List<FieldErrorResponse.FieldError > fieldError) {
-        FieldErrorResponse error = FieldErrorResponse.builder()
-                .type(status.name())
-                .message(message)
-                .status(status.value())
-                .fieldErrors(fieldError)
-                .build();
-
-        return ResponseEntity.status(status)
-                .body(error);
-    }
-
-
-    /**
      * Help creating the notFound method response with data
      * including message
      * @Params message -> Takes proper message for error response
@@ -147,6 +136,13 @@ public class ResponseBuilder {
        return error(HttpStatus.NOT_FOUND,message);
     }
 
-
+    public static FieldErrorResponse ValidationError(HttpStatus httpStatus , String message , List<FieldErrorResponse.FieldError> errors){
+        return FieldErrorResponse.builder()
+                .status(httpStatus.value())
+                .message(message)
+                .type(httpStatus.name())
+                .fieldErrors(errors)
+                .build();
+    }
 
 }
