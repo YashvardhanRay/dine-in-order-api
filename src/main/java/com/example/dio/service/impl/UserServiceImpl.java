@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final TableRepository tableRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final UserIdentity userIdentity;
     private final RestaurantRepository restaurantRepository;
 
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         Admin user = new Admin();
         userMapper.mapToUserEntity(registrationRequest, user);
 
-//        encryptPassword(user);
+        encryptPassword(user);
 
         user.setRole(UserRole.ADMIN);
 
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
         if(restaurant.getCreatedBy().equals(userIdentity.getCurrentUserEmail())){
             Staff user = new Staff();
             userMapper.mapToUserEntity(registrationRequest, user);
-//            encryptPassword(user);
+            encryptPassword(user);
             user.setRole(UserRole.STAFF);
             user.setRestaurant(restaurant);
             user.setRestaurantTables(new ArrayList<>(restaurant.getRestaurantTables()));
@@ -104,9 +104,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-//    private void encryptPassword(User user){
-//        String encodedPassword =  passwordEncoder.encode(user.getPassword());
-//        user.setPassword(encodedPassword);
-//    }
+    private void encryptPassword(User user){
+        String encodedPassword =  passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+    }
 
 }
