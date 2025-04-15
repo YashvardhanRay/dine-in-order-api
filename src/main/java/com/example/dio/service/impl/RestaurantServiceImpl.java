@@ -22,7 +22,7 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private UserRepository userRepository;
-    private RestaurantRepository restaurantReposetory;
+    private RestaurantRepository restaurantRepository;
     private final CuisineRepository cuisineRepository;
     private RestaurantMapper restaurantMapper;
 
@@ -36,7 +36,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             restaurant.setCuisineTypes(cuisineTypes);
             restaurant.setAdmin(admin);
 
-            restaurantReposetory.save(restaurant);
+            restaurantRepository.save(restaurant);
 
             return restaurantMapper.mapToRestaurantResponse(restaurant);
         }
